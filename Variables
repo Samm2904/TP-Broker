@@ -1,0 +1,34 @@
+///Variables que usamos
+
+MAIN
+
+opcionMenuPrincipal
+
+opcionMBroker
+
+opcionOperarCliente
+
+opcionMenuEmpresa
+opcionPerfilCliente – Elije si crear cuenta o ingresa como cliente cliente
+cliente nuevo- guarda la variable
+cantidadCliente – lleva la cuenta d los clientes
+opcionPerfilClienteCopia- Guarda lo q elije el cliente
+opcionClienteLogueado
+
+opcionMenuSaldo - elige opcion dentro de saldo, osea o cargar o extraer
+
+noLogueado - para loop de iniciar sesion
+
+
+Nombreing[], passing[] -- para iniciar sesion y validar el user
+
+opcionMenuInversion 
+
+empresaCompraINversion[30]-variable paara saber  a q empresa el quire comprar el cliente la acion
+ 
+cliente.c:
+clienteNuevo – variable para creae clientes
+clienteLogueado - le dice al programa que cliente esta logueado para poder cargar y modificar datos sobre ese cliente
+copiaSaldoCliente - es para validar si hubo modificacion en el saldo
+
+	
