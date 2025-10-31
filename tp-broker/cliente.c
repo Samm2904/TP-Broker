@@ -4,6 +4,7 @@
 #include <string.h>
 #include "inversion.h"
 #include "cliente.h"
+#include "empresa.h"
 
 void menuClienteLogueado (){
 	printf("Ingreso exitoso.\n\r");
@@ -29,9 +30,9 @@ void menuClienteInversion (){
 void menuRendimientos (){
 	printf("--- Rendimientos ---\n\r");
 	printf("1-Rendimientos diarios(valor neto).\n\r");
-	printf("2-Rendimientos diarios porcentuales(%).\n\r");
+	printf("2-Rendimientos diarios porcentuales.\n\r");
 	printf("3-Rendimientos historicos(valor neto).\n\r");
-	printf("4-Rendimientos historicos porcentuales(%).\n\r");
+	printf("4-Rendimientos historicos porcentuales.\n\r");
 	printf("5-Volver atras.\n\r");
 	printf("Ingrese su opcion\n\r");
 }
@@ -62,7 +63,7 @@ cliente crearCliente() {
 	scanf(" %30[^\n]", clienteNuevo.email);
 	printf("Ingrese cuil: ");
 	scanf(" %30[^\n]", clienteNuevo.cuil);
-	printf("Ingrese password: "); ///Preguntar si hay que validar contraseña, es decir una mayuscula, un numero, etc
+	printf("Ingrese password: "); ///Preguntar si hay que validar contraseÃ±a, es decir una mayuscula, un numero, etc
 	scanf(" %30[^\n]", clienteNuevo.password);
 	clienteNuevo.saldo_cuenta = 0.0;
 	clienteNuevo.num_inversiones = 0;
@@ -110,10 +111,11 @@ void verPortfolio(cliente c){
 	}
 	else {
      	do {
-    	printf("Inversion N°%d:\n\r",i+1);
+    	printf("Inversion NÂ°%d:\n\r",i+1);
     	printf("Id Ticker:%s\n\r",c.inversiones[i].id_ticker);
     	printf("Cantidad de acciones:%d\n\r",c.inversiones[i].cantidad_acciones);
     	printf("Precio de compra:%.2f\n\r",c.inversiones[i].precio_compra);
+    	printf("Fecha de compra:%s\n\r",c.inversiones[i].fecha);
     	i++;
 	} while(i<c.num_inversiones);
 	}
@@ -145,5 +147,45 @@ void menuInversiones (){
 	printf("Ingrese su opcion\n\r");
 }
 
-///cliente comprarInversion (cliente c,)
+cliente copiarInversiones(cliente c, inversion baseInversiones[], int cantidadInversiones){
+    int j=0;
+        for(int i=0;i<cantidadInversiones;i++){
+            if (strcmp(baseInversiones[i].cuil, c.cuil)==0){
+                    c.inversiones[j]=baseInversiones[i];
+                    j++;
+                }
+            if (j==c.num_inversiones)
+                break;
+        }
+    return  c;
+}
+
+cliente comprarInversion (cliente c, char empresaCompraInversion[],float precioCompra, float cantidadAComprar){
+    int indice=c.num_inversiones;
+
+    c.inversiones[indice].cantidad_acciones=cantidadAComprar;
+    strcpy(c.inversiones[indice].cuil,c.cuil);
+    strcpy(c.inversiones[indice].cuil,"08/10/2026");
+    strcpy(c.inversiones[indice].cuil,empresaCompraInversion);
+    strcpy(c.inversiones[indice].cuil,"C");
+    c.inversiones[indice].precio_compra=precioCompra;
+    c.saldo_cuenta-=precioCompra;
+    c.num_inversiones++;
+    return c;
+}
+
+void menuSaldoInsuficiente(){
+    printf("Saldo insuficiente.\n\r");
+    printf("Que quiere hacer?:\n\r");
+    printf("1 - Reintentar compra.\n\r");
+    printf("2 - Cancelar compra.\n\r");
+    printf("Ingrese su opcion:\n\r");
+}
+
+void menuConfirmarCompra(){
+    printf("Saldo suficiente, desea confirmar la compra?\n\r");
+    printf("1-Confirmar compra.\n\r");
+    printf("2-Cancelar compra.\n\r");
+    printf("Ingrese una opcion:\n\r");
+}
 
